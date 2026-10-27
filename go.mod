@@ -1,6 +1,6 @@
 module github.com/donseba/go-webthings-contrib
 
-go 1.27.1
+go 1.27.3
 
 // Development checkout until go-webthings is released.
 replace github.com/donseba/go-webthings => ../go-webthings

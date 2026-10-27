@@ -43,7 +43,6 @@ task s3:down    # removes the MinIO
 `../go-webthings` first. `test:s3` sets `WT_TEST_S3`; set it yourself to test
 against another S3-compatible store (see `s3/integration_test.go`).
 
-`go.mod` builds against the go-webthings checkout in `../go-webthings`. For
-now that needs development branches of go-webthings' libraries in a Go
-workspace, and contrib builds in the same workspace; see
+`go.mod` requires a released go-webthings. To test contrib against a change
+of go-webthings, build it in a Go workspace with a go-webthings checkout; see
 [Development](../go-webthings/README.md#development) in go-webthings' README.

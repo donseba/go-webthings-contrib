@@ -2,21 +2,18 @@ module github.com/donseba/go-webthings-contrib
 
 go 1.27.3
 
-// Development checkout until go-webthings is released.
-replace github.com/donseba/go-webthings => ../go-webthings
-
 require (
-	github.com/donseba/go-webthings v0.0.0-00010101000000-000000000000
+	github.com/donseba/go-webthings v0.1.1
 	github.com/minio/minio-go/v7 v7.3.0
 )
 
 require (
 	filippo.io/edwards25519 v1.2.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/donseba/go-form/v2 v2.5.0 // indirect
-	github.com/donseba/go-importmap v1.3.0 // indirect
-	github.com/donseba/go-partial v0.14.0 // indirect
-	github.com/donseba/go-router v0.11.0 // indirect
+	github.com/donseba/go-form/v2 v2.6.0 // indirect
+	github.com/donseba/go-importmap v1.5.0 // indirect
+	github.com/donseba/go-partial v0.15.0 // indirect
+	github.com/donseba/go-router v0.12.0 // indirect
 	github.com/donseba/go-translator/v2 v2.0.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/ebitengine/purego v0.10.1 // indirect
@@ -54,4 +51,5 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.12.1 // indirect
 	modernc.org/sqlite v1.60.1 // indirect
+	rsc.io/qr v0.2.0 // indirect
 )

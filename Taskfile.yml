@@ -1,0 +1,49 @@
+version: '3'
+
+vars:
+  # golangci-lint is shared with go-webthings, which pins its version.
+  GOLANGCI_LINT: ../go-webthings/bin/golangci-lint
+  S3_URL: http://wtwt:wtwtwtwt@127.0.0.1:59000/wt-test
+
+tasks:
+  default:
+    desc: List development tasks
+    cmd: task --list
+
+  fmt:
+    desc: Format code like go-webthings
+    preconditions:
+      - &lint
+        sh: test -x {{.GOLANGCI_LINT}}
+        msg: 'golangci-lint is missing: run "task tools" in ../go-webthings first'
+    cmds:
+      - '{{.GOLANGCI_LINT}} fmt ./...'
+      - '{{.GOLANGCI_LINT}} run --enable-only wsl_v5 --fix ./...'
+      - '{{.GOLANGCI_LINT}} fmt ./...'
+
+  lint:
+    desc: Run static checks and whitespace rules like go-webthings
+    preconditions:
+      - *lint
+    cmd: '{{.GOLANGCI_LINT}} run ./...'
+
+  test:
+    desc: Run the tests; the S3 tests skip without a store (see test:s3)
+    cmd: go test ./... {{.CLI_ARGS}}
+
+  test:s3:
+    desc: Run the S3 tests against the MinIO of s3:up
+    env:
+      WT_TEST_S3: '{{.S3_URL}}'
+    cmd: go test ./s3/ {{.CLI_ARGS}}
+
+  s3:up:
+    desc: Start a throwaway MinIO in Docker for test:s3
+    cmd: >-
+      docker start wt-test-minio 2>/dev/null ||
+      docker run -d --name wt-test-minio -p 127.0.0.1:59000:9000
+      -e MINIO_ROOT_USER=wtwt -e MINIO_ROOT_PASSWORD=wtwtwtwt minio/minio server /data
+
+  s3:down:
+    desc: Stop and remove the MinIO of s3:up
+    cmd: docker rm -f wt-test-minio
